@@ -11,6 +11,10 @@ const routes = [
         name: "products",
         component: () => import("../pages/ProductPage.vue"),
     },
+    {
+        path: "/:pathMatch(.*)*",
+        component: () => import("../pages/404.vue"),
+    },
 ];
 
 export const router = createRouter({

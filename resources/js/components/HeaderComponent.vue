@@ -1,9 +1,11 @@
 <template>
-    <header>
-        <nav>
-            <router-link :to="{ name: 'home' }">LOGO</router-link>
-            <ul>
-                <li>
+    <header class="py-4 shadow-md">
+        <nav class="flex container mx-auto items-center justify-between">
+            <router-link :to="{ name: 'home' }" class="text-3xl font-squada"
+                >LOGO</router-link
+            >
+            <ul class="flex text-md uppercase text-slate-500">
+                <li class="mr-3">
                     <router-link :to="{ name: 'home' }">Home</router-link>
                 </li>
                 <li>
