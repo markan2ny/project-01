@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = DB::table('products')->select('product_name')->get();
-        return response()->json($product);
+        return ProductResource::collection(Product::all());
     }
 
     public function store(ProductRequest $request)
@@ -23,9 +23,13 @@ class ProductController extends Controller
         return response()->json($request);
     }
 
-    public function update($id)
+    public function show($product)
     {
-        $product = DB::table('products')->where('id', $id)->first();
-        return response()->json($product);
+        // $p = DB::table('products')
+        //     ->select('product_name')
+        //     ->where('id', $product)
+        //     ->get();
+        $p = Product::find($product);
+        return new ProductResource($p);
     }
 }
