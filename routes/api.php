@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,9 @@ Route::get('/products', [ProductController::class, 'index'])->name('product.name
 Route::post('/products', [ProductController::class, 'store'])->name('product.store');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('product.show');
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('product.update');
+
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+});
