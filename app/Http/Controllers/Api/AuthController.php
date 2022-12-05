@@ -51,6 +51,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $details = [];
@@ -59,6 +60,10 @@ class AuthController extends Controller
             array_push($details, $__token, $__name);
 
             return response()->json($details);
+        } else {
+            $response = ['success' => false, 'message' => 'Invalid Credentials'];
+
+            return response()->json($response, 400);
         }
     }
 }
