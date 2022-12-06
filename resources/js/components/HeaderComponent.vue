@@ -6,10 +6,10 @@
                 <li>
                     <router-link :to="{ name: 'home' }">Home</router-link>
                 </li>
-                <li class="mx-2">
+                <li class="mx-2" v-if="isLogin == false">
                     <router-link :to="{ name: 'login' }">Login</router-link>
                 </li>
-                <li>
+                <li v-if="isLogin == false">
                     <router-link :to="{ name: 'register' }">Register</router-link>
                 </li>
             </ul>
@@ -18,4 +18,11 @@
 </template>
 <script setup>
 import { RouterLink } from "vue-router";
+
+const props = defineProps({
+    isLogin: {
+        type: Boolean,
+        default: false,
+    }
+})
 </script>

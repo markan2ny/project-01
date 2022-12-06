@@ -1,9 +1,9 @@
 <template>
 
     <div>
-        <aside>
+        <sidebar-page>
             <button @click="logout">Logout</button>
-        </aside>
+        </sidebar-page>
         <section>
 
         </section>
@@ -14,7 +14,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-
+import SidebarPage from './SidebarPage.vue';
 const router = useRouter();
 
 const logout = () => {

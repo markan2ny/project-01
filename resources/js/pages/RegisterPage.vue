@@ -1,10 +1,12 @@
 <template>
 
     <div class="block xl:w-[25vw] mt-[50px] mx-auto px-4 py-5 shadow-lg">
-        {{ form }}
         <form @submit.prevent="registerHandler">
             <h1 class="text-3xl font-squada bg-gradient-to-tr from-cyan-500 to-pink-500 text-transparent bg-clip-text">
                 Register</h1>
+            <p v-for="error in errors" :key="error">
+                <span v-for="err in error" class="text-red-300">{{ err }}</span>
+            </p>
             <input type="text" placeholder="Full Name"
                 class="w-full p-2 bg-transparent text-slate-600 border-2 outline-none border-slate-500 mt-[20px]"
                 v-model="form.name">
@@ -25,10 +27,12 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter();
+const errors = ref([]);
 let form = reactive({
     name: '',
     email: '',
@@ -39,7 +43,11 @@ let form = reactive({
 const registerHandler = async () => {
     await axios.post('/api/register', form)
         .then(res => {
-            console.log(res)
+            router.push({ name: 'dashboard' })
+            localStorage.setItem('token', res.data.data[0]);
+        })
+        .catch(error => {
+            errors.value = error.response.data.message;
         })
 }
 
