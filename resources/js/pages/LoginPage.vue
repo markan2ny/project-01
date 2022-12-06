@@ -1,7 +1,7 @@
 <template>
     <div class="block xl:w-[25vw] mt-[50px] mx-auto px-4 py-5 shadow-lg">
         {{ form }}
-        <p v-if="error">{{ error }}</p>
+        <p v-if="(error.length > 0)">{{ error }}</p>
         <form @submit.prevent="loginHandler">
             <h1 class="text-3xl font-squada bg-gradient-to-tr from-cyan-500 to-pink-500 text-transparent bg-clip-text">
                 Login
@@ -23,23 +23,30 @@
 <script setup>
 import { reactive, ref } from "vue";
 import axios from "axios";
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 // composition api
 let form = reactive({
     email: "",
     password: "",
 });
-let error = ref('');
+
+let error = ref({});
 const loginHandler = async () => {
     await axios
         .post("/api/login", form)
         .then((res) => {
-            const { data } = res.data;
-            // Stored token to localstorage
-            localStorage.setItem("token", data[0]);
+
+            if (res.data.success) {
+                // Stored token to localstorage
+                console.log(res.data)
+                localStorage.setItem("token", res.data.data[0]);
+                router.push({ name: 'dashboard' })
+            }
+            if (!res.data.success) {
+                error.value = res.data.message
+            }
         })
-        .catch((err) => {
-            error.value = err.response.data.message;
-        });
 };
 </script>
