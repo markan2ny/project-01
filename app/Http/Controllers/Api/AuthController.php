@@ -52,16 +52,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-        // $validator = Validator::make($request->all(), [
-        //     'email' => 'required|unique:users',
-        //     'password' => 'required',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|unique:users',
+            'password' => 'required',
+        ]);
 
-        // if ($validator->fails()) {
-        //     $response = ['success' => false, 'message' => $validator->errors()];
+        if ($validator->fails()) {
+            $response = ['success' => false, 'message' => $validator->errors()];
 
-        //     return response()->json($response, 400);
-        // }
+            return response()->json($response);
+        }
 
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -75,7 +75,7 @@ class AuthController extends Controller
         } else {
             $response = ['success' => false, 'message' => 'Invalid Credentials'];
 
-            return response()->json($response, 400);
+            return response()->json($response);
         }
     }
 }
