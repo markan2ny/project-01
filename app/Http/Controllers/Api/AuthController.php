@@ -52,14 +52,26 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
+        // $validator = Validator::make($request->all(), [
+        //     'email' => 'required|unique:users',
+        //     'password' => 'required',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     $response = ['success' => false, 'message' => $validator->errors()];
+
+        //     return response()->json($response, 400);
+        // }
+
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $details = [];
             $__token = $user->createToken('CRUD')->plainTextToken;
             $__name = $user->name;
             array_push($details, $__token, $__name);
-
-            return response()->json($details);
+            $response = ['success' => true, 'data' => $details];
+            return response()->json($response, 200);
         } else {
             $response = ['success' => false, 'message' => 'Invalid Credentials'];
 
