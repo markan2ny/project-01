@@ -1,24 +1,14 @@
 <template>
 
-    <div>
-        <sidebar-page>
-            <button @click="logout">Logout</button>
-        </sidebar-page>
-        <section>
-
-        </section>
+    <div class="flex md:gap-x-2 my-auto z-0 mt-[30px]">
+        <sidebar-page />
+        <main-page />
     </div>
 
 
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-import SidebarPage from './SidebarPage.vue';
-const router = useRouter();
-
-const logout = () => {
-    localStorage.removeItem('token');
-    router.push({ name: 'home' })
-}
+import SidebarPage from './SidebarPage.vue'
+import MainPage from './MainPage.vue'
 </script>

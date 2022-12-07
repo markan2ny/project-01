@@ -1,7 +1,7 @@
 <template>
-    <header class="py-4 shadow-md">
+    <header class="py-4 shadow-md w-full z-auto">
         <nav class="flex container mx-auto items-center justify-between">
-            <router-link :to="{ name: 'home' }" class="text-3xl font-squada text-slate-600">LARAVEL + VUE</router-link>
+            <router-link :to="{ name: 'home' }" class="text-3xl font-squada text-slate-600">TEMP</router-link>
             <ul class="flex text-md uppercase text-slate-500">
                 <li>
                     <router-link :to="{ name: 'home' }">Home</router-link>
