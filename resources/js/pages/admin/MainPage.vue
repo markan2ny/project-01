@@ -1,6 +1,8 @@
 <template>
-    <section class="grow">
-        main
+    <section class="grow shadow-xl bg-slate-100">
+        <div class="p-2">
+
+        </div>
     </section>
 </template>
 
