@@ -1,4 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
+import AppLayout from '../components/AppLayout.vue';
+import Dashboard from '../pages/authenticated/Dashboard.vue';
+import Product from '../pages/authenticated/Product.vue';
+
 
 const routes = [
  {
@@ -26,17 +30,27 @@ const routes = [
   },
  },
  {
-  path: "/dashboard",
-  name: "dashboard",
-  component: () => import("../pages/admin/DashboardPage.vue"),
-  meta: {
-   requireAuth: true,
+   path: "/:pathMatch(.*)*",
+   component: () => import("../pages/404.vue"),
   },
- },
- {
-  path: "/:pathMatch(.*)*",
-  component: () => import("../pages/404.vue"),
- },
+  {
+    path: '/app',
+    name:'app',
+    component: AppLayout,
+
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard.home',
+        component: Dashboard
+      },
+      {
+        path: 'products',
+        name: 'dashboard.products',
+        component: Product
+      }
+    ]
+  },
 ];
 
 const router = createRouter({
@@ -44,13 +58,5 @@ const router = createRouter({
  routes,
 });
 
-router.beforeEach((to, from) => {
- if (to.meta.requireAuth && !localStorage.getItem("token")) {
-  return { name: "login" };
- }
- if (to.meta.requireAuth == false && localStorage.getItem("token")) {
-  return { name: "dashboard" };
- }
-});
-
+// 1
 export default router;
